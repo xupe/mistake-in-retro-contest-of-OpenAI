@@ -2,12 +2,11 @@ import tensorflow as tf
 import sys
 sys.path.append('..')
 
-from replay import PrioritizedReplayBuffer
-from ENV import BatchedFrameStack, BatchedGymEnv
-from sonic_util import AllowBacktracking, make_env
-from rainbow import DQN, rainbow_models
-from Space.gym import gym_space_vectorizer
-from player import NStepPlayer, BatchedPlayer
+from rollouts import PrioritizedReplayBuffer, NStepPlayer, BatchedPlayer
+from envs import BatchedFrameStack, BatchedGymEnv
+from utils import AllowBacktracking, make_env
+from models import DQN, rainbow_models
+from spaces import gym_space_vectorizer
 
 import gym_remote.exceptions as gre
 
@@ -25,7 +24,7 @@ def main():
                                   max_val=200))
         player = NStepPlayer(BatchedPlayer(env, dqn.online_net), 4)
         saver = tf.train.Saver()
-        saver.restore(sess, 'transfer_model/Sonic')
+        saver.restore(sess, 'transfer_model/name of your pre-training model')
         optim, optimize = dqn.optimize(learning_rate=0.0001)
         sess.run(tf.variables_initializer(optim.variables()))
         #sess.run(tf.global_variables_initializer())

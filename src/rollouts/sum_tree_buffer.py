@@ -61,7 +61,7 @@ class Memory(object):
 
      epsilon = 0.01  #avoid divide by zero
      alpha = 0.6     #TD_error importance
-     beta = 0.4      #import sampling，
+     beta = 0.4      #import sampling
      beta_increment_per_sample = 0.001   #increment of beta per sample
      abs_err_upper = 1.    #max value of TD_error
 
